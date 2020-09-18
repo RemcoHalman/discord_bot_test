@@ -9,17 +9,8 @@ load_dotenv()
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(command_prefix='$')
-
-@bot.event
-async def on_message(message):
-    # we do not want the bot to reply to itself
-    if message.author == bot.user:
-        return
-
-    if message.content.startswith('!hello'):
-        msg = 'Hello {0.author.mention}'.format(message)
-        await message.channel.send(msg)
+description = "An Test bot"
+bot = commands.Bot(command_prefix='$', description=description)
 
 @bot.event
 async def on_ready():
@@ -28,10 +19,11 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-# TODO: Custom command
+
 @bot.command()
-async def test(ctx, message):
-    await ctx.channel.send(message)
+async def add(ctx, left: int, right: int):
+    """ Adds two numbers together """
+    await ctx.send(left + right)
 
 
 bot.run(TOKEN)
