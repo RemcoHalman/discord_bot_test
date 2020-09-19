@@ -3,19 +3,12 @@
 # ================================================================== *
 
 define USAGE
-Holiday Countdown ⚙️
+Discord bot docker ⚙️
 
 Commands:
 	BASE:
 	build           : Build Docker image
 	run             : Run Docker image
-	destroy_empty   : Destroy empty docker images
-	_____________________________________________
-	VUE:
-	serve			: Run local Vue instance
-	build_vue		: Builds vue app
-	fix_vue			: Vue linting
-	_____________________________________________
 endef
 
 export USAGE
@@ -53,10 +46,3 @@ run:
 	docker run -d -p $(EXPOSE_PORT):$(LOCAL_PORT) $(IMG_NAME)
 
 buildrun: build run
-
-stats:
-	@docker ps --format 'CONTAINER ID : {{.ID}} | Name: {{.Names}} | Image:  {{.Image}} |  Ports: {{.Ports}}'
-
-stop: ## Stop and remove a running container
-	docker stop $$(docker ps -q --filter ancestor=$(PREFIX)/$(APP_NAME):$(VERSION) --format="{{.ID}}" )
-
